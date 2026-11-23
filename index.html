@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lumen Stadium | Choose your seat for the Meridian Cup Final</title>
+  <meta name="description" content="Fly into Lumen Stadium, pick a stand, a block and a seat, and see the pitch from it. A demo with an invented tournament.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#04100d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="bar">
+    <button class="back" id="back" type="button" hidden><span aria-hidden="true">←</span> <span id="backText"></span></button>
+    <p class="step" id="step" aria-live="polite"><small id="stepNo"></small><b id="stepName"></b></p>
+    <p class="mark" aria-label="Meridian Cup 2034">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="24" rx="21" ry="15" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="13" y="18" width="22" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="24" y1="18" x2="24" y2="30" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="24" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span><b id="markCup"></b><small id="markEvent"></small></span>
+    </p>
+  </header>
+
+  <main>
+    <!-- 0. From the sky -->
+    <section class="view" id="v-intro" data-view="intro">
+      <div class="frame"><div class="pic" data-pic></div></div>
+      <div class="shade shade-intro"></div>
+      <div class="intro">
+        <p class="eyebrow" id="introEyebrow"></p>
+        <h1 id="introTitle"></h1>
+        <p class="intro-text" id="introText"></p>
+        <button class="btn" id="enter" type="button"></button>
+      </div>
+      <p class="demo-note" id="demoNote"></p>
+    </section>
+
+    <!-- 1. The pitch from above: choose a stand -->
+    <section class="view" id="v-bowl" data-view="bowl" hidden>
+      <div class="frame"><div class="pic" data-pic></div><svg class="areas" id="standAreas" viewBox="0 0 100 100" preserveAspectRatio="none"></svg></div>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 2. One stand: choose a block -->
+    <section class="view" id="v-stand" data-view="stand" hidden>
+      <div class="frame"><div class="pic" data-pic></div><div class="hot" id="blockAreas"></div></div>
+      <div class="shade"></div>
+      <ul class="legend" id="legend"></ul>
+    </section>
+
+    <!-- 3. One block: choose a seat -->
+    <section class="view" id="v-block" data-view="block" hidden>
+      <div class="frame"><div class="pic" data-pic></div><div class="hot" id="seats"></div></div>
+      <div class="shade"></div>
+      <p class="chip" id="seatChip"></p>
+    </section>
+
+    <!-- 4. The view from the seat -->
+    <section class="view" id="v-seat" data-view="seat" hidden>
+      <div class="frame"><div class="pic drift" data-pic></div><video class="live" id="live" muted loop playsinline preload="none"></video></div>
+      <div class="shade shade-seat"></div>
+      <div class="ticket" id="ticket"></div>
+      <div class="actions" id="seatActions"></div>
+    </section>
+
+    <!-- 5. The VIP box: choose an armchair -->
+    <section class="view" id="v-vip" data-view="vip" hidden>
+      <div class="frame"><div class="pic" data-pic></div><div class="hot" id="chairs"></div></div>
+      <div class="shade"></div>
+      <p class="chip" id="vipChip"></p>
+    </section>
+
+    <!-- 6. Booked: back in the sky, with the ticket -->
+    <section class="view" id="v-booked" data-view="booked" hidden>
+      <div class="frame"><div class="pic" data-pic></div></div>
+      <div class="shade shade-booked"></div>
+      <div class="ticket is-booked" id="bookedTicket"></div>
+      <div class="actions"><button class="btn btn-light" id="again" type="button"></button></div>
+    </section>
+  </main>
+
+  <div class="tag" id="tag" hidden></div>
+  <video class="clip" id="clip" muted playsinline preload="auto"></video>
+  <p class="place-read" id="placeRead" hidden></p>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

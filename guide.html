@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lumen Stadium | Higgsfield guide</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --page: #f2efe9;
+      --sheet: #fbfaf6;
+      --ink: #0f0f11;
+      --ink-soft: #5c5a56;
+      --line: #d9d3c5;
+      --brick: #d9480f;
+      --brick-deep: #b23a0a;
+      --tint: #fde9dc;
+      --sand: #f0d9c6;
+      --ok: #2d7a4f;
+      --display: "Instrument Serif", Georgia, serif;
+      --text: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: var(--text);
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :focus-visible { outline: 2px solid var(--brick); outline-offset: 2px; border-radius: 4px; }
+
+    a { color: var(--brick-deep); }
+    code { font-family: var(--mono); font-size: 0.88em; background: var(--tint); padding: 0.1em 0.35em; border-radius: 4px; }
+
+    .bar {
+      position: sticky; top: 0; z-index: 5;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px;
+      padding: 10px clamp(16px, 4vw, 40px);
+      background: rgba(242, 239, 233, 0.94);
+      border-bottom: 1px solid var(--line);
+    }
+    .progress { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 0.92rem; font-weight: 500; }
+    .meter { width: 120px; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+    .meter span { display: block; height: 100%; width: 0; background: var(--ok); transition: width 300ms ease; }
+    .linkbtn { border: 0; background: none; padding: 0; font: inherit; font-size: 0.9rem; color: var(--brick-deep); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+    main { max-width: 860px; margin: 0 auto; padding: clamp(24px, 5vw, 56px) clamp(16px, 4vw, 40px) 80px; }
+    h1 { margin: 0 0 0.25em; font-family: var(--display); font-weight: 400; font-size: clamp(2.2rem, 5.2vw, 3.3rem); line-height: 1; letter-spacing: -0.02em; }
+    .lede { margin: 0 0 24px; max-width: 62ch; color: var(--ink-soft); font-size: 1.05rem; }
+
+    .step { margin-top: clamp(40px, 7vw, 72px); }
+    .step > h2 { display: flex; align-items: baseline; gap: 14px; margin: 0 0 6px; font-size: 1.45rem; font-weight: 700; line-height: 1.2; }
+    .step > h2 .num { font-family: var(--display); font-weight: 400; font-size: 2.2rem; color: var(--brick); }
+    .step > p { margin: 0 0 18px; max-width: 66ch; color: var(--ink-soft); }
+
+    .model { padding: 18px 20px; border-radius: 10px; background: var(--ink); color: var(--sheet); }
+    .model .label { margin: 0; font-size: 0.85rem; color: rgba(251, 250, 246, 0.7); }
+    .model .name { margin: 2px 0 6px; font-size: 1.45rem; font-weight: 700; line-height: 1.2; }
+    .model .name small { margin-left: 8px; font-size: 0.85rem; font-weight: 400; color: rgba(251, 250, 246, 0.7); }
+    .model .why { margin: 0 0 12px; max-width: 64ch; color: rgba(251, 250, 246, 0.86); }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+    .chips li { padding: 4px 11px; border-radius: 999px; background: rgba(240, 217, 198, 0.14); border: 1px solid rgba(240, 217, 198, 0.5); color: var(--sand); font-size: 0.88rem; font-weight: 500; }
+
+    .asset { margin-top: 14px; padding: 16px 18px; background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; }
+    .asset.is-found { border-color: var(--ok); }
+    .asset-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 10px; }
+    .asset-head h3 { margin: 0; font-size: 1.05rem; font-weight: 700; }
+    .asset-head .n { display: inline-grid; place-items: center; min-width: 30px; height: 30px; padding: 0 8px; border-radius: 6px; background: var(--ink); color: var(--sheet); font-weight: 700; font-size: 0.92rem; }
+    .asset-head .dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.2); }
+    .status { margin-left: auto; padding: 2px 10px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; background: var(--page); color: var(--ink-soft); border: 1px solid var(--line); }
+    .is-found .status { background: #dff1e4; color: var(--ok); border-color: #a9d6b8; }
+
+    .attach { margin: 0 0 10px; padding: 8px 12px; border-radius: 8px; background: #f8ecd0; border: 1px solid #e6d3a3; font-size: 0.93rem; }
+    .asset-body { display: flex; gap: 14px; align-items: flex-start; }
+    .prompt { flex: 1; margin: 0; padding: 12px 14px; border-left: 3px solid var(--brick); border-radius: 0 8px 8px 0; background: var(--tint); font-size: 0.95rem; white-space: pre-wrap; }
+    .preview { flex: none; width: 120px; aspect-ratio: 1; object-fit: contain; border-radius: 6px; border: 1px solid var(--line); background: #fff; }
+    .preview[hidden] { display: none; }
+
+    .asset-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 12px; font-size: 0.9rem; color: var(--ink-soft); }
+    .copy { border: 0; border-radius: 6px; padding: 8px 16px; background: var(--brick); color: #fff; font: inherit; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+    .copy:hover { background: var(--brick-deep); }
+    .copy.is-done { background: var(--ok); }
+
+    .note { margin: 14px 0 0; padding: 12px 14px; border-radius: 10px; background: #f8ecd0; border: 1px solid #e6d3a3; font-size: 0.93rem; }
+    .files { margin: 0; padding: 14px 16px; border-radius: 10px; background: var(--ink); color: var(--sheet); font-family: var(--mono); font-size: 0.86rem; line-height: 1.7; overflow-x: auto; }
+
+    @media (max-width: 620px) {
+      .bar { position: static; }
+      .asset-body { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { .meter span { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <div class="progress" aria-live="polite">
+      <div class="meter" aria-hidden="true"><span id="meterFill"></span></div>
+      <span id="progressText">Checking folder</span>
+      <button class="linkbtn" id="recheck" type="button">Check folder again</button>
+    </div>
+  </div>
+
+  <main>
+    <h1>Lumen Stadium: 9 pictures, 2 clips</h1>
+    <p class="lede">
+      A seat-booking site for an invented cup final: fly into the stadium, pick a stand, a block and a seat, and see the pitch from it.
+      The tournament, the stadium and the teams are our own, so nothing here copies a real event.
+      You make the pictures and the two clips by hand in Higgsfield; I build the site and place the clickable areas on your pictures.
+    </p>
+
+    <p class="note">
+      <b>Make the pictures in order, 1 to 9.</b> From picture 2 on, each card says which of your own earlier pictures to attach.
+      That is what keeps it one stadium: without the attached picture the model invents a new building every time.
+    </p>
+    <p class="note">
+      <b>Where we are:</b> all nine pictures and both clips are good and in the site. Nothing is left to make.
+    </p>
+    <p class="note">
+      <b>Make the pictures first and send them to me before you make the clips.</b> The clips cost credits, and each one starts and ends on one of
+      your pictures, so the pictures have to be right first.
+    </p>
+
+    <section class="step">
+      <h2><span class="num">1</span> The nine pictures</h2>
+      <p>One prompt, one picture. Make two or three of each and keep the one that looks most like the same stadium as the one before.</p>
+      <div class="model">
+        <p class="label">Model to pick in Higgsfield</p>
+        <p class="name">Nano Banana Pro<small>for every picture</small></p>
+        <p class="why">Marked Unlimited in your account, so with the Unlimited switch on it costs no credits, and it is the best free choice for keeping the same building from picture to picture.</p>
+        <ul class="chips"><li>Unlimited switch on</li><li>Resolution 2K</li><li>16:9</li><li>Attach the pictures the card names</li></ul>
+      </div>
+      <p class="note"><b>Before you keep a picture, check four things:</b> the roof is a white ring with a teal line of light, the seats are teal,
+        there are three tiers with glass boxes in the middle one, and there is no writing or real team badge anywhere. If one is wrong, make it again.</p>
+      <div id="pics"></div>
+    </section>
+
+    <section class="step">
+      <h2><span class="num">2</span> The two clips</h2>
+      <p>Do these after I have checked the pictures. The first try at clip 1 failed because its two pictures showed the stadium from different directions,
+        so the model had to bend one into the other. Picture 1 is now the same view as picture 2 from further back, so clip 1 is a plain move straight forward.</p>
+      <div class="model">
+        <p class="label">Model to pick in Higgsfield</p>
+        <p class="name">A video model that takes a start frame<small>and, for clip 1, an end frame</small></p>
+        <p class="why">Clip 1 needs both a first and a last picture (Kling is one model that takes both), so it begins and ends exactly on your pictures. Clip 2 needs only a first picture: the view from the seat simply comes alive.</p>
+        <ul class="chips"><li>5 seconds</li><li>16:9</li><li>1080p</li><li>No sound needed</li></ul>
+      </div>
+      <div id="clips"></div>
+    </section>
+
+    <section class="step">
+      <h2><span class="num">3</span> What to send me</h2>
+      <p>Download the files from Higgsfield as they are and send them in one zip, in the order you made them. If the file names do not say which is which, tell me the order.
+        I check every picture against the others, then put them in the site and draw the stands, blocks and seats on them.</p>
+      <pre class="files">1  sky           The stadium from far away
+2  bowl          The pitch from straight above
+3  stand         One long stand, seen from the pitch
+4  block-upper   The upper tier, close
+5  block-lower   The lower tier, close
+6  view-upper    The view from a seat in the upper tier
+7  view-lower    The view from a seat in the lower tier
+8  vip           The VIP box
+9  view-vip      The view from the VIP box
+C1 intro         Clip 1: flying towards the stadium
+C2 view-upper    Clip 2: the match from your seat</pre>
+    </section>
+  </main>
+
+  <script>
+  (() => {
+    "use strict";
+    const DATA = {"pics": [{"n": 1, "file": "sky", "title": "The stadium from far away", "attach": ["bowl"], "text": "The attached picture shows a stadium at dusk from the air. Make the same view from much further back and higher: the camera has pulled straight back along the same line, without turning. The stadium is exactly the same building, seen from exactly the same direction, with the pitch lying the same way across the picture, but now it is small: it sits in the middle of the picture and takes about one third of the picture's width. Around it, show what was outside the first picture: the park with palm trees and warm lit paths leading to the stadium, streets and low buildings with their lights on, and in the distance a city skyline. Above the skyline is a wide dusk sky, deep blue at the top with a band of orange sunset along the horizon, taking about the top quarter of the picture. Photorealistic, like a still from a high-end sports broadcast or an architect's night render: sharp, rich, cinematic, deep contrast, the pitch glowing. No text, no logos, no scoreboards with writing, no watermark, no frame. 16:9."}, {"n": 2, "file": "bowl", "title": "The pitch from straight above", "attach": ["sky"], "text": "Use the attached picture(s) as the reference for this stadium: the same building, the same roof ring with its teal light, the same three tiers, the same teal seats, the same night. Now the camera is directly above the middle of the pitch, inside the roof ring, looking straight down. The stadium is always the same one, called Lumen Stadium: a very large modern football stadium shaped like an oval bowl. Outside, its shell is made of tall, pale sandstone-coloured vertical fins that curve and overlap like a woven basket, lit from below in warm gold. The roof is a wide flat white ring with a thin band of teal light along its inner edge, open to the sky above the pitch. Inside there are three tiers of seats all the way round: a deep lower tier, a narrow middle tier of glass-fronted boxes with warm amber light inside, and a steep upper tier. Every seat is deep teal. The pitch is bright striped green grass under white floodlights that hang from the roof ring. The pitch is in the centre of the picture, lying with its long sides along the top and bottom of the picture and its goals at the left and right. It takes about half of the picture's width. All four stands are fully in the picture around it, the same depth on every side: one long stand along the top, one long stand along the bottom, one end stand at the left and one at the right. Stairways divide each stand into clear blocks. The inner edge of the roof ring with its teal light frames the picture. Players are tiny on the pitch. The stands are full for a cup final at night. The fans wear plain teal and white shirts and scarves, with some in amber. No real team shirts, no badges, no flags of real countries, no readable writing anywhere. Photorealistic, like a still from a high-end sports broadcast or an architect's night render: sharp, rich, cinematic, deep contrast, the pitch glowing. No text, no logos, no scoreboards with writing, no watermark, no frame. 16:9."}, {"n": 3, "file": "stand", "title": "One long stand, seen from the pitch", "attach": ["bowl", "sky"], "text": "Use the attached picture(s) as the reference for this stadium: the same building, the same roof ring with its teal light, the same three tiers, the same teal seats, the same night. Now the camera is over the centre circle of the pitch, about fifteen metres up, looking straight at one of the two long stands: a flat, level front view, like an elevation. The stadium is always the same one, called Lumen Stadium: a very large modern football stadium shaped like an oval bowl. Outside, its shell is made of tall, pale sandstone-coloured vertical fins that curve and overlap like a woven basket, lit from below in warm gold. The roof is a wide flat white ring with a thin band of teal light along its inner edge, open to the sky above the pitch. Inside there are three tiers of seats all the way round: a deep lower tier, a narrow middle tier of glass-fronted boxes with warm amber light inside, and a steep upper tier. Every seat is deep teal. The pitch is bright striped green grass under white floodlights that hang from the roof ring. The stand fills the picture from the left edge to the right edge. From the bottom up: a thin strip of pitch and the touchline, then the lower tier, then the narrow middle tier of glass-fronted boxes, then the steep upper tier, then the underside of the white roof ring with its floodlights and teal light at the top. Every tier runs perfectly level across the picture. Straight stairways divide each tier into six blocks of the same width. The stands are full for a cup final at night. The fans wear plain teal and white shirts and scarves, with some in amber. No real team shirts, no badges, no flags of real countries, no readable writing anywhere. Photorealistic, like a still from a high-end sports broadcast or an architect's night render: sharp, rich, cinematic, deep contrast, the pitch glowing. No text, no logos, no scoreboards with writing, no watermark, no frame. 16:9."}, {"n": 4, "file": "block-upper", "title": "The upper tier, close", "attach": ["block-lower", "stand"], "text": "Make the same kind of picture as the first attached picture, but of the upper tier of this stadium. Keep its framing exactly: the same flat front view from the same distance, three blocks of deep teal folding seats side by side, two straight concrete stairways between them, the rows level across the picture, about fourteen rows. What changes: above the top row there are no glass boxes. Instead there is the plain back wall of the stand and, above it, the underside of the white roof with its band of teal light and its floodlights. Below the bottom row there is no pitch. Instead there is the concrete front edge of the tier with a glass rail. At the left and right edges of the picture the tier simply continues with more teal seats: no outside wall, no shell, no sky. In the middle block, a group of about a hundred fans fills the middle rows, standing and cheering, in plain teal and white shirts and scarves. Every other seat in the picture is empty, so the teal seats are clearly visible. No real team shirts, no badges, no readable writing. Photorealistic, like a still from a high-end sports broadcast or an architect's night render: sharp, rich, cinematic, deep contrast, the pitch glowing. No text, no logos, no scoreboards with writing, no watermark, no frame. 16:9."}, {"n": 5, "file": "block-lower", "title": "The lower tier, close", "attach": ["block-upper", "stand"], "text": "Make the same kind of picture as the first attached picture, but of the lower tier of this stadium, the one next to the pitch. Keep its framing exactly: the same flat front view from the same distance, three blocks of deep teal folding seats side by side, two straight concrete stairways between them, the rows level across the picture, about fifteen rows. What changes: above the top row is the front of the middle tier, a row of glass-fronted boxes with warm amber light inside, running the whole width of the picture. Below the bottom row is a low advertising board with no writing on it, and under it a strip of bright green pitch with a white touchline, along the bottom edge of the picture. At the left and right edges of the picture the tier simply continues with more teal seats: no outside wall, no timber shell, no sky, no night. In the middle block, a group of about a hundred fans fills the middle rows, standing and cheering, in plain teal and white shirts and scarves. Every other seat in the picture is empty, so the teal seats are clearly visible. No real team shirts, no badges, no readable writing. Photorealistic, like a still from a high-end sports broadcast or an architect's night render: sharp, rich, cinematic, deep contrast, the pitch glowing. No text, no logos, no scoreboards with writing, no watermark, no frame. 16:9."}, {"n": 6, "file": "view-upper", "title": "The view from a seat in the upper tier", "attach": ["bowl", "stand"], "text": "Use the attached picture(s) as the reference for this stadium: the same building, the same roof ring with its teal light, the same three tiers, the same teal seats, the same night. Now the camera is the eyes of a fan sitting in the upper tier of one long stand, on the halfway line, looking at the pitch. The stadium is always the same one, called Lumen Stadium: a very large modern football stadium shaped like an oval bowl. Outside, its shell is made of tall, pale sandstone-coloured vertical fins that curve and overlap like a woven basket, lit from below in warm gold. The roof is a wide flat white ring with a thin band of teal light along its inner edge, open to the sky above the pitch. Inside there are three tiers of seats all the way round: a deep lower tier, a narrow middle tier of glass-fronted boxes with warm amber light inside, and a steep upper tier. Every seat is deep teal. The pitch is bright striped green grass under white floodlights that hang from the roof ring. The whole pitch is in view below, lying across the picture, bright green, with the match being played and the players small. Beyond it is the opposite long stand with its three full tiers and the white roof ring with its teal light and floodlights above. Along the bottom edge of the picture, dark and slightly out of focus, are the heads and shoulders of the fans in the two rows in front. The stands are full for a cup final at night. The fans wear plain teal and white shirts and scarves, with some in amber. No real team shirts, no badges, no flags of real countries, no readable writing anywhere. Photorealistic, like a still from a high-end sports broadcast or an architect's night render: sharp, rich, cinematic, deep contrast, the pitch glowing. No text, no logos, no scoreboards with writing, no watermark, no frame. 16:9."}, {"n": 7, "file": "view-lower", "title": "The view from a seat in the lower tier", "attach": ["view-upper", "stand"], "text": "Use the attached picture(s) as the reference for this stadium: the same building, the same roof ring with its teal light, the same three tiers, the same teal seats, the same night. Now the camera is the eyes of a fan sitting in the lower tier of one long stand, about twelve rows from the pitch, on the halfway line. The stadium is always the same one, called Lumen Stadium: a very large modern football stadium shaped like an oval bowl. Outside, its shell is made of tall, pale sandstone-coloured vertical fins that curve and overlap like a woven basket, lit from below in warm gold. The roof is a wide flat white ring with a thin band of teal light along its inner edge, open to the sky above the pitch. Inside there are three tiers of seats all the way round: a deep lower tier, a narrow middle tier of glass-fronted boxes with warm amber light inside, and a steep upper tier. Every seat is deep teal. The pitch is bright striped green grass under white floodlights that hang from the roof ring. The pitch is close and wide, seen from only a few metres above it, with players in the middle distance and the far touchline beyond them. The opposite long stand rises high behind, three full tiers, with the roof ring, its teal light and the floodlights above. Along the bottom edge of the picture, dark and slightly out of focus, are the heads and shoulders of the fans in the rows in front. The stands are full for a cup final at night. The fans wear plain teal and white shirts and scarves, with some in amber. No real team shirts, no badges, no flags of real countries, no readable writing anywhere. Photorealistic, like a still from a high-end sports broadcast or an architect's night render: sharp, rich, cinematic, deep contrast, the pitch glowing. No text, no logos, no scoreboards with writing, no watermark, no frame. 16:9."}, {"n": 8, "file": "vip", "title": "The VIP box", "attach": ["your first try of this picture", "stand"], "text": "The first attached picture shows a VIP lounge inside a stadium, but from too far away. Make it again from much closer, so that the lounge fills the whole picture from edge to edge. The camera is about six metres in front of the lounge's glass rail, level with it, looking straight in: a flat, level front view. Do not show the outside of the stadium, its shell, the roof, the sky or the pitch. The lounge keeps the same look: warm amber light, pale stone and timber walls, a long bar with bottles along the back wall and three or four staff standing behind it. In front of the bar are two straight rows of five wide leather armchairs, ten in all, every one empty, all facing the camera. They are large in the picture: each armchair is about one tenth of the picture's width, the back row a little higher and smaller than the front row, with clear floor between the chairs. A low glass rail runs along the very bottom of the picture, and below it is one row of the deep teal seats of the tier below. Photorealistic, like a still from a high-end sports broadcast or an architect's night render: sharp, rich, cinematic, deep contrast, the pitch glowing. No text, no logos, no scoreboards with writing, no watermark, no frame. 16:9."}, {"n": 9, "file": "view-vip", "title": "The view from the VIP box", "attach": ["view-upper", "vip"], "text": "Use the attached picture(s) as the reference for this stadium: the same building, the same roof ring with its teal light, the same three tiers, the same teal seats, the same night. Now the camera is the eyes of a guest sitting in a leather armchair at the front of that box, in the middle tier of one long stand, on the halfway line. The stadium is always the same one, called Lumen Stadium: a very large modern football stadium shaped like an oval bowl. Outside, its shell is made of tall, pale sandstone-coloured vertical fins that curve and overlap like a woven basket, lit from below in warm gold. The roof is a wide flat white ring with a thin band of teal light along its inner edge, open to the sky above the pitch. Inside there are three tiers of seats all the way round: a deep lower tier, a narrow middle tier of glass-fronted boxes with warm amber light inside, and a steep upper tier. Every seat is deep teal. The pitch is bright striped green grass under white floodlights that hang from the roof ring. The whole pitch is in view, lying across the picture, seen from middle height, with the match being played. Across the bottom of the picture is the low glass rail of the box, and below it, dark, the heads of the fans in the lower tier. Beyond the pitch is the opposite long stand with its three full tiers, the roof ring, its teal light and the floodlights. The stands are full for a cup final at night. The fans wear plain teal and white shirts and scarves, with some in amber. No real team shirts, no badges, no flags of real countries, no readable writing anywhere. Photorealistic, like a still from a high-end sports broadcast or an architect's night render: sharp, rich, cinematic, deep contrast, the pitch glowing. No text, no logos, no scoreboards with writing, no watermark, no frame. 16:9."}], "clips": [{"n": "C1", "file": "intro", "title": "Clip 1: flying towards the stadium", "start": "sky", "end": "bowl", "text": "One continuous, slow, straight push-in with no cuts. The camera flies straight forward and a little down towards the stadium, from the first frame to the last frame, without turning, tilting or rotating. The stadium keeps exactly the same shape all the way: one stadium, one roof ring, one pitch. Nothing morphs, nothing is doubled, no second stadium appears, and the pitch stays a flat rectangle lying across the picture. Steady speed, slowing gently at the end. No text, no logos, no shake."}, {"n": "C2", "file": "view-upper", "title": "Clip 2: the match from your seat", "start": "view-upper", "end": null, "text": "The camera is fixed in a seat and almost still, with only a very slight, slow drift forward. The match is being played: the players run and pass the ball across the pitch, the crowd sways, claps and waves scarves, and the floodlights shimmer. Nothing else changes: the same stadium, the same stands, the same heads of the fans in front. No cuts, no zoom, no text, no logos."}]};
+    const DIR = "assets/stadium";
+    const NUM = {"sky": 1, "bowl": 2, "stand": 3, "block-upper": 4, "block-lower": 5, "view-upper": 6, "view-lower": 7, "vip": 8, "view-vip": 9};
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const cards = [];
+    function card(host, n, title, attach, text, file, ext) {
+      const el = document.createElement("article");
+      el.className = "asset";
+      el.innerHTML =
+        `<div class="asset-head"><span class="n">${esc(n)}</span><h3>${esc(title)} (16:9)</h3><span class="status">Not in the site yet</span></div>` +
+        `<p class="attach">${attach}</p>` +
+        `<div class="asset-body"><p class="prompt"></p></div>` +
+        `<div class="asset-foot"><button class="copy" type="button">Copy prompt</button><span>I save it as <code>${esc(file)}.${ext}</code></span></div>`;
+      el.querySelector(".prompt").textContent = text;
+      el.querySelector(".copy").addEventListener("click", (e) => copy(text, e.currentTarget));
+      host.append(el); cards.push({ el, file, ext });
+    }
+    DATA.pics.forEach((p) => card(document.getElementById("pics"), p.n, p.title,
+      p.attach.length ? `<b>Attach your own:</b> ${p.attach.map((a) => (NUM[a] ? `picture ${NUM[a]}` : a)).join(" and ")}` : "<b>Attach nothing.</b> This first picture sets the look of the stadium.", p.text, p.file, "webp"));
+    DATA.clips.forEach((c) => card(document.getElementById("clips"), c.n, c.title,
+      `<b>Start frame:</b> picture ${NUM[c.start]} · <b>End frame:</b> ${c.end ? "picture " + NUM[c.end] : "none, leave it empty"}`, c.text, c.file, "mp4"));
+
+    async function copy(text, button) {
+      let ok = false;
+      try { await navigator.clipboard.writeText(text); ok = true; }
+      catch (_) {
+        const ta = document.createElement("textarea");
+        ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.append(ta); ta.select();
+        try { ok = document.execCommand("copy"); } catch (_) { ok = false; }
+        ta.remove();
+      }
+      button.textContent = ok ? "Copied" : "Select the text and copy it";
+      button.classList.toggle("is-done", ok);
+      window.setTimeout(() => { button.textContent = "Copy prompt"; button.classList.remove("is-done"); }, 1800);
+    }
+
+    // a card turns green when its file is in the site's folder
+    let run = 0;
+    async function check() {
+      const mine = ++run;
+      const has = await Promise.all(cards.map((c) => fetch(`${DIR}/${c.file}.${c.ext}?t=${Date.now()}`, { method: "HEAD" }).then((r) => r.ok).catch(() => false)));
+      if (mine !== run) return;
+      cards.forEach((c, i) => { c.el.classList.toggle("is-found", has[i]); c.el.querySelector(".status").textContent = has[i] ? "In the site" : "Not in the site yet"; });
+      const done = has.filter(Boolean).length;
+      document.getElementById("meterFill").style.width = `${(done / cards.length) * 100}%`;
+      document.getElementById("progressText").textContent = done === cards.length ? "Everything is in the site" : `${done} of ${cards.length} in the site`;
+    }
+    document.getElementById("recheck").addEventListener("click", check);
+    window.addEventListener("focus", check);
+    check();
+  })();
+  </script>
+</body>
+</html>
